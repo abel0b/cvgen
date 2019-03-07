@@ -1,0 +1,63 @@
+\documentclass{resume}
+
+\begin{document}
+<% if (photo) { %>
+\begin{minipage}[r]{.30\linewidth}
+    \includegraphics[width=80pt]{<%= photo %>}
+\end{minipage}
+\begin{minipage}[l]{.60\linewidth}
+<% } %>
+    \huge\textbf{<%= first_name %> <%= last_name %>}
+    \large <%= title %>\normalsize\\
+    \textcolor{contact-color}{
+        \small
+        <%= birth_date %>\\
+        \texttt{<%= email %>}\\
+        \texttt{<%= website %>}\\
+        \textit{<%= number %>}
+    }
+<% if (photo) { %>
+\end{minipage}
+<% } %>
+
+\vspace{0.5cm}
+
+\textbf{<%= lang.objective %>} <%= objective %>
+
+\section*{<%= lang.education %>}
+
+\begin{tabularx}{\linewidth}{p{3cm} X}
+    <% for (let item of Object.values(education)) { %>
+    <%= item.date %>  & \textbf{<%= item.name %>}\\
+    &  <%= item.description %>\\
+    &  <%= item.location %>\\
+    <% } %>
+\end{tabularx}
+
+\section*{<%= lang.work_experience %>}
+\begin{tabularx}{\linewidth}{p{3cm} X}
+    <% for (let item of Object.values(experience)) { %>
+    <%= item.date %>  & \textbf{<%= item.name %>}\\
+    &  <%= item.description %>\\
+    &  <%= item.location %>\\
+    <% } %>
+\end{tabularx}
+
+\section*{<%= lang.projects %>}
+\begin{tabularx}{\linewidth}{p{3cm} X}
+    <% for (let item of Object.values(projects)) { %>
+    <%= item.date %>  & \textbf{<%= item.name %>}\\
+    &  <%= item.description %>\\
+    &  <%= item.location %>\\
+    <% } %>
+\end{tabularx}
+
+
+\section*{<%= lang.skills %>}
+\begin{tabularx}{\linewidth}{p{3cm} X}
+    <% for (let item of Object.values(skills)) { %>
+    \textbf{<%= item.name %>} & <%= item.value %> \\
+    <% } %>
+\end{tabularx}
+
+\end{document}
