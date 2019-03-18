@@ -1,2 +1,4 @@
 node_modules
 /output
+/input
+!/input/*example.yaml

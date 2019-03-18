@@ -5,6 +5,7 @@
   "main": "generator.js",
   "scripts": {
     "gen": "node generator.js",
+    "clean": "rm -rf output/*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

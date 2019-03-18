@@ -1,4 +1,6 @@
+OUTPUT_DIRECTORY?=.
+
 all: build
 
 build:
-	pdflatex index.tex
+	pdflatex -output-directory=$(OUTPUT_DIRECTORY) index.tex

@@ -2,9 +2,12 @@ const fs = require("fs-extra")
 const path = require("path")
 const yaml = require("js-yaml")
 const ejs = require("ejs")
+const util = require("util")
+const exec = util.promisify(require('child_process').exec)
 
 const INPUT_DIR = path.join(__dirname, 'input')
 const OUTPUT_DIR = path.join(__dirname, 'output')
+const PDF_DIR = path.join(OUTPUT_DIR, 'pdf')
 const TEMPLATE_DIR = path.join(__dirname, 'template')
 const LANG_DIR = path.join(__dirname, 'lang')
 
@@ -33,12 +36,18 @@ async function generateCv(template, filename) {
         lang,
     })
     await fs.writeFile(path.join(out, "index.tex"), generated)
+    console.log(`OUTPUT_DIR=${PDF_DIR} make -C ${out}`)
+    const {stdout, stderr} = await exec(`OUTPUT_DIR=${PDF_DIR} make -C ${out}`)
+    await fs.copy(path.join(out, "index.pdf"), path.join(PDF_DIR, `${name}.pdf`))
     console.log(`+ output directory ${out}`)
 }
 
 async function main() {
     const filenames = await fs.readdir(INPUT_DIR)
-    await fs.ensureDir(OUTPUT_DIR)
+    await Promise.all([
+        fs.ensureDir(OUTPUT_DIR),
+        fs.ensureDir(PDF_DIR),
+    ])
 
     const template = ejs.compile(
         await fs.readFile(path.join(TEMPLATE_DIR, "index.tex"), "utf-8")
