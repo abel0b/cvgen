@@ -12,6 +12,7 @@
 \usepackage{wrapfig}
 \usepackage{tabularx}
 \usepackage{tabularx}
+\usepackage{tikz}
 \usepackage{titlesec}
 \usepackage{multicol}
 \usepackage[linewidth=0,innertopmargin=15pt, innerbottommargin=15pt, leftmargin=60pt, rightmargin=60pt, skipbelow=20pt]{mdframed}
@@ -21,5 +22,19 @@
 \definecolor{contact-color}{gray}{0.2}
 
 \titleformat{\section}
-%{\color{Blue}\normalfont\scshape\large\bfseries}{\thesection}{1em}{\APLstar\ }[{\titleline{\color{Blue}\titlerule}}]
-{\color{Blue}\large\bfseries}{}{1em}{}
+{\color{Blue}\large\bfseries}{}{0}{}
+
+\titlespacing\section{0pt}{0pt}{0pt}
+
+\renewenvironment{abstract}
+ {\small
+  \begin{center}
+  \bfseries \abstractname\vspace{-.5em}\vspace{0pt}
+  \end{center}
+  \list{}{%
+    \setlength{\leftmargin}{3cm}
+    \setlength{\rightmargin}{\leftmargin}%
+  }%
+  \item\relax}
+ {\endlist}
+\renewcommand{\abstractname}{Objective}

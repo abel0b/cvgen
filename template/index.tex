@@ -1,63 +1,74 @@
 \documentclass{resume}
 
+\renewenvironment{abstract}
+ {\small
+  \begin{center}
+  \bfseries \abstractname\vspace{-.5em}\vspace{0pt}
+  \end{center}
+  \list{}{%
+    \setlength{\leftmargin}{3cm}
+    \setlength{\rightmargin}{\leftmargin}%
+  }%
+  \item\relax}
+ {\endlist}
+
 \begin{document}
-<% if (photo) { %>
-\begin{minipage}[r]{.30\linewidth}
-    \includegraphics[width=80pt]{<%= photo %>}
-\end{minipage}
-\begin{minipage}[l]{.60\linewidth}
-<% } %>
-    \huge\textbf{<%= first_name %> <%= last_name %>}
-    \large <%= title %>\normalsize\\
-    \textcolor{contact-color}{
-        \small
-        <%= birth_date %>\\
-        \texttt{<%= email %>}\\
-        \texttt{<%= website %>}\\
-        \textit{<%= number %>}
-    }
-<% if (photo) { %>
-\end{minipage}
-<% } %>
+\renewcommand{\abstractname}{Objective}
+
+\begin{center}
+    \noindent
+    \textcolor{black}{\Huge\textbf{<%= first_name %> <%= last_name %>}}\\
+    \vspace{0.7em}
+    \textit{\large <%= title %>}\\
+    \vspace{0.2em}
+    \small
+    Born August 16, 1997 in Harfleur, France\\
+    \vspace{0.2em}
+    {\color{Blue} \href{mailto:<%= email %>}{<%= email %>}}\\
+    \vspace{0.2em}
+    {\color{Blue} \url{http://abel.calluaud.net}}\\
+    \vspace{0.2em}
+    <%= number %>\\
+    \normalsize
+\end{center}
 
 \vspace{0.5cm}
 
-\textbf{<%= lang.objective %>} <%= objective %>
+\begin{abstract}
+<%= objective %>
+\end{abstract}
 
-\section*{<%= lang.education %>}
+\section*{}
 
 \begin{tabularx}{\linewidth}{p{3cm} X}
-    <% for (let item of Object.values(education)) { %>
-    <%= item.date %>  & \textbf{<%= item.name %>}\\
+    \section*{\tikz\fill [gray!30] (0,0) rectangle (3cm,0.3em);} & \section*{<%= lang.education %>}
+    <% for (let item of Object.values(education)) { %>\\
+    \small <%= item.date %>  & \textbf{<%= item.name %>}\\
     &  <%= item.description %>\\
-    &  <%= item.location %>\\
-    <% } %>
+    &  \textit{<%= item.location %>}<% } %>
 \end{tabularx}
 
-\section*{<%= lang.work_experience %>}
 \begin{tabularx}{\linewidth}{p{3cm} X}
+    \section*{\tikz\fill [gray!30] (0,0) rectangle (3cm,0.3em);} & \section*{<%= lang.work_experience %>}
     <% for (let item of Object.values(experience)) { %>
-    <%= item.date %>  & \textbf{<%= item.name %>}\\
+    \\
+    \small <%= item.date %>  & \textbf{<%= item.name %>}\\
     &  <%= item.description %>\\
-    &  <%= item.location %>\\
+    &  \textit{<%= item.location %>}
     <% } %>
 \end{tabularx}
 
-\section*{<%= lang.projects %>}
 \begin{tabularx}{\linewidth}{p{3cm} X}
-    <% for (let item of Object.values(projects)) { %>
-    <%= item.date %>  & \textbf{<%= item.name %>}\\
-    &  <%= item.description %>\\
-    &  <%= item.location %>\\
-    <% } %>
+    \section*{\tikz\fill [gray!30] (0,0) rectangle (3cm,0.3em);} & \section*{<%= lang.projects %>}
+    <% for (let item of Object.values(projects)) { %>\\
+    \small <%= item.date %>  & \textbf{<%= item.name %>}\\
+    &  <%= item.description %><% } %>
 \end{tabularx}
 
-
-\section*{<%= lang.skills %>}
 \begin{tabularx}{\linewidth}{p{3cm} X}
-    <% for (let item of Object.values(skills)) { %>
-    \textbf{<%= item.name %>} & <%= item.value %> \\
-    <% } %>
+    \section*{\tikz\fill [gray!30] (0,0) rectangle (3cm,0.3em);} & \section*{<%= lang.skills %>}
+    <% for (let item of Object.values(skills)) { %>\\
+    \textbf{<%= item.name %>}  & <%= item.value %><% } %>
 \end{tabularx}
 
 \end{document}

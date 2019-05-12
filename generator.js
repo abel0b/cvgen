@@ -20,14 +20,13 @@ async function generateCv(template, filename) {
     await fs.copy(TEMPLATE_DIR, out)
     const lang = yaml.safeLoad(await fs.readFile(path.join(LANG_DIR, `${config.lang || "en"}.yaml`), "utf-8"))
     const generated = template({
-        photo: false,
-        first_name: "\\[first\\_name\\]",
-        last_name: "\\[last\\_name\\]",
-        number: "\\[number\\]",
-        title: "\\[title\\]",
-        email: "\\[email\\]",
-        birth_date: "\\[birth\\_date\\]",
-        website: "\\[website\\]",
+        photo: true,
+        first_name: "@first\\_name",
+        last_name: "@last\\_name",
+        number: "@number",
+        title: "@title",
+        email: "@email",
+        website: "@website",
         experience: {},
         projects: {},
         education: {},
@@ -36,8 +35,15 @@ async function generateCv(template, filename) {
         lang,
     })
     await fs.writeFile(path.join(out, "index.tex"), generated)
-    console.log(`OUTPUT_DIR=${PDF_DIR} make -C ${out}`)
-    const {stdout, stderr} = await exec(`OUTPUT_DIR=${PDF_DIR} make -C ${out}`)
+    try {
+        const {stdout, stderr} = await exec(`OUTPUT_DIR=${PDF_DIR} make -C ${out}`)
+        console.log(stdout)
+    }
+    catch(e) {
+        console.log(e.stdout)
+        console.error(e.stderr)
+        return
+    }
     await fs.copy(path.join(out, "index.pdf"), path.join(PDF_DIR, `${name}.pdf`))
     console.log(`+ output directory ${out}`)
 }
