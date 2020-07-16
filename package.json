@@ -21,6 +21,6 @@
   "dependencies": {
     "ejs": "^2.6.1",
     "fs-extra": "^7.0.1",
-    "js-yaml": "^3.12.2"
+    "js-yaml": "^3.13.1"
   }
 }
